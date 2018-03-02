@@ -1,3 +1,6 @@
+# This app is in process of rewriting to Phoenix1.3 new features
+# If you can do it better - PLEASE, commit!
+
 # Discuss
 
 To start your Phoenix server:
