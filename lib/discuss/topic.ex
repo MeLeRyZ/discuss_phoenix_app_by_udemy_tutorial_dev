@@ -4,7 +4,7 @@ defmodule Discuss.Topic do
   alias Discuss.Topic
 
 
-  schema "topic" do
+  schema "topics" do
     field :title, :string
 
     timestamps()
