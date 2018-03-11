@@ -16,11 +16,13 @@ defmodule DiscussWeb.Router do
   scope "/", DiscussWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", TopicController, :index
-    get "/topics/new", TopicController, :new #samiy juice
-    post "/topics", TopicController, :create
-    get "/topics/:id/edit", TopicController, :edit #wildcardmatcher ":id"
-    put "/topics/:id", TopicController, :update #when save
+    # get "/", TopicController, :index
+    # get "/topics/new", TopicController, :new #samiy juice
+    # post "/topics", TopicController, :create
+    # get "/topics/:id/edit", TopicController, :edit #wildcardmatcher ":id"
+    # put "/topics/:id", TopicController, :update #when save
+    resources "/", TopicController #whenever any request phoenix auto generate if rest-full
+     
   end
 
   # Other scopes may use custom stacks.
