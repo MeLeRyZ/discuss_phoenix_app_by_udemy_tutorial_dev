@@ -1,6 +1,7 @@
-<div class="jumbotron">
-  <h2><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h2>
-  <p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
+<div class="hero-section">
+  <div class="hero-section-text">
+    <h1>Welcome to here!</h1>
+  </div>
 </div>
 
 <div class="row marketing">
@@ -16,6 +17,7 @@
       <li>
         <a href="https://github.com/phoenixframework/phoenix">Source</a>
       </li>
+    </ul>
   </div>
 
   <div class="col-lg-6">
