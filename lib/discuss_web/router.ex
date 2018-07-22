@@ -22,7 +22,14 @@ defmodule DiscussWeb.Router do
     # get "/topics/:id/edit", TopicController, :edit #wildcardmatcher ":id"
     # put "/topics/:id", TopicController, :update #when save
     resources "/", TopicController #whenever any request phoenix auto generate if rest-full
-     
+  end
+
+  scope "/auth", DiscussWeb do
+      pipe_through :browser
+
+      get "/:provider", AuthController, :request #don't need to specify, for all added provs
+      get "/:provider/callback", AuthController, :callback
+
   end
 
   # Other scopes may use custom stacks.
