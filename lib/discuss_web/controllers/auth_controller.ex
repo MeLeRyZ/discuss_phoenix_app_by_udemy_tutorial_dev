@@ -1,6 +1,6 @@
 defmodule DiscussWeb.AuthController do
     use DiscussWeb, :controller
-    plug Ueberauth #chpunk!
+    plug Ueberauth
 
     def callback(conn, params) do
         IO.puts "++++++++"

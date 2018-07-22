@@ -58,7 +58,5 @@ config :discuss, Discuss.Repo,
   pool_size: 10
 
 # authentication
-config :ueberauth, Ueberauth.Strategy.Github.Oauth,
-    client_id: "de40a9bd858308689c13",
-    client_secret: "a99b5c539c7721eb79d6bbeb07a62c50d41e1b8f"
+
 ###

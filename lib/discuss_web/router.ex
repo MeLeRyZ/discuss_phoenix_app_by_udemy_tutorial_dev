@@ -29,7 +29,6 @@ defmodule DiscussWeb.Router do
 
       get "/:provider", AuthController, :request #don't need to specify, for all added provs
       get "/:provider/callback", AuthController, :callback
-
   end
 
   # Other scopes may use custom stacks.
