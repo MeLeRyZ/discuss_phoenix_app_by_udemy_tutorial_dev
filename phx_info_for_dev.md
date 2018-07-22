@@ -39,6 +39,10 @@ DIFFERENCES 1.3:
 1. apt-get install -y inotify-tools
 2.  Create "model" -> cmd: mix phx.gen.schema NameContext Context some:string ... etc
 _______________________________
+Installing authentication:
+1. Install ueberauth
+2. Install additionally package ueberauth_provider
+_______________________________
 FIRST PHOENIX APP!
 0. Button for registration.
 1. Page with list of topics
