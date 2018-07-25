@@ -6,7 +6,7 @@ _______________________________________________
 For instalation:
 
 - NodeJS > 5.0
-Install 64.deb OR use nvm package menedger
+Install 64.deb OR use nvm package manager
 Now last version is 8.9.4
 link: https://losst.ru/ustanovka-node-js-ubuntu-16-04
 - PostgreSQL. Stable version from apt
@@ -27,11 +27,11 @@ mix phx.server
 iex -S mix phx.server
 //////
 username: "postgres",
-password: "z",
+password: "postgres",
 - in config/dev.exs
 then:
 - sudo -u postgres psql
-- alter user postgres password 'z';
+- alter user postgres password 'postgres';
 Then:
 - mix ecto.create
 //////

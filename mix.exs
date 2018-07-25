@@ -20,7 +20,7 @@ defmodule Discuss.Mixfile do
   def application do
     [
       mod: {Discuss.Application, []},
-      extra_applications: [:logger, :runtime_tools, :postgrex, :ueberauth, :ueberauth_github]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 

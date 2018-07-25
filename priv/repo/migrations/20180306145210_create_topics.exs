@@ -7,6 +7,6 @@ defmodule Discuss.Repo.Migrations.CreateTopics do
 
       timestamps()
     end
-
   end
+
 end
