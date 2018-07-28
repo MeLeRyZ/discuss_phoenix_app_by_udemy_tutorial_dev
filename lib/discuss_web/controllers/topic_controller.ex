@@ -4,8 +4,9 @@ defmodule DiscussWeb.TopicController do
     alias Discuss.Repo
     import Ecto #for build_assoc
 
-    #exec only with certain actions
+    #exec only with certain actions #the moduleplug
     plug DiscussWeb.Plugs.RequireAuth when action in [:new, :create, :edit, :update, :delete]
+    plug :check_topic_owner when action in [:update, :edit, :delete]
 
     def index(conn, _params) do
         topics = Repo.all(Topic)
@@ -63,6 +64,30 @@ defmodule DiscussWeb.TopicController do
         conn
         |> put_flash(:info, "Topic Deleted")
         |> redirect(to: topic_path(conn, :index))
+    end
+
+    def check_topic_owner(conn, _params) do
+        %{params: %{"id" => topic_id}} = conn
+
+        cond do
+            Repo.get(Topic, topic_id).user_id == conn.assigns.user.id ->
+                 conn
+            :error ->
+                conn
+                |> put_flash(:error, "You cannot change that")
+                |> redirect(to: topic_path(conn, :index))
+                |> halt()
+        end
+
+        # if Repo.get(Topic, topic_id).user_id == conn.assigns.user.id do
+        #     conn
+        # else
+        #     conn
+        #     |> put_flash(:error, "You cannot change that")
+        #     |> redirect(to: topic_path(conn, :index))
+        #     |> halt()
+        # end
+
     end
 
 end
