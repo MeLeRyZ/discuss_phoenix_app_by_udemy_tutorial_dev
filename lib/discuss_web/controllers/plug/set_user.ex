@@ -1,10 +1,10 @@
 defmodule DiscussWeb.Plugs.SetUser do
     import Plug.Conn
-    import Phoenix.Controller
+    #import Phoenix.Controller
 
     alias Discuss.Repo
     alias Discuss.User
-    alias DiscussWeb.Router.Helpers
+    #alias DiscussWeb.Router.Helpers
     #grab user id, fetch db, tiny transforms
 
     def init(_params) do
