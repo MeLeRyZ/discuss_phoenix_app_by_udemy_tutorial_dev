@@ -18,7 +18,13 @@ defmodule DiscussWeb.TopicController do
     end
 
     def create(conn, %{"topic" => topic }) do
-        changeset = Topic.changeset(%Topic{}, topic)
+        # con.assigns[:user] == conn.assigns.user
+        #Ecto doc has info about assoc
+        # old one -> changeset = Topic.changeset(%Topic{}, topic)
+        # new one
+        changeset = conn.assigns.user
+            |> build_assoc(:topics) #matche up with schema
+            |> Topic.changeset(topic)
 
         case Repo.insert(changeset)  do #saving to db
             {:ok, _topic} ->
