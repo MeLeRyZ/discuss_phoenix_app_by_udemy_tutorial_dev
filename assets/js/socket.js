@@ -33,7 +33,7 @@ function renderComments(comments) { // for initial things
 }
 
 function renderComment(comment) { // for adding to exist lists
-    const renderedComment = commentTemplate(comment);
+    const renderedComment = commentTemplate(event.comment);
     document.querySelector('.collection').innerHTML += renderedComment;
 }
 

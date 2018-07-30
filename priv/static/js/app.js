@@ -1682,7 +1682,7 @@ function renderComments(comments) {
 
 function renderComment(comment) {
     // for adding to exist lists
-    var renderedComment = commentTemplate(comment);
+    var renderedComment = commentTemplate(event.comment);
     document.querySelector('.collection').innerHTML += renderedComment;
 }
 
