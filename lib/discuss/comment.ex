@@ -2,7 +2,7 @@ defmodule Discuss.Comment do
     use Ecto.Schema
     import Ecto.Changeset
 
-    @derive {Poison.Encoder, only: [:content]} #NEED restart server
+    @derive {Poison.Encoder, only: [:content, :user]} #NEED restart server
 
     schema "comments" do
         field :content, :string
