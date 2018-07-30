@@ -1607,6 +1607,12 @@ var createSocket = function createSocket(topicId) {
     }).receive("error", function (resp) {
         console.log("Unable to join", resp);
     });
+
+    document.querySelector('button').addEventListener('click', function () {
+        var content = document.querySelector('textarea').value;
+
+        channel.push('comment:add', { content: content });
+    });
 };
 
 window.createSocket = createSocket;
