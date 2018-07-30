@@ -11,7 +11,7 @@ defmodule DiscussWeb.Plugs.RequireAuth do
             conn #means everythiing is fine, go through
         else
             conn
-            |> put_flash("error", "You must be loged in")
+            |> put_flash(:error, "You must be loged in")
             |> redirect(to: Helpers.topic_path(conn, :index))
             |> halt() #cut off, and main controller go further now
         end
