@@ -1584,8 +1584,62 @@ var Timer = function () {
 })));
   })();
 });
+
+require.register("phoenix_html/priv/static/phoenix_html.js", function(exports, require, module) {
+  require = __makeRelativeRequire(require, {}, "phoenix_html");
+  (function() {
+    "use strict";
+
+(function() {
+  function buildHiddenInput(name, value) {
+    var input = document.createElement("input");
+    input.type = "hidden";
+    input.name = name;
+    input.value = value;
+    return input;
+  }
+
+  function handleLinkClick(link) {
+    var message = link.getAttribute("data-confirm");
+    if(message && !window.confirm(message)) {
+        return;
+    }
+
+    var to = link.getAttribute("data-to"),
+        method = buildHiddenInput("_method", link.getAttribute("data-method")),
+        csrf = buildHiddenInput("_csrf_token", link.getAttribute("data-csrf")),
+        form = document.createElement("form");
+
+    form.method = (link.getAttribute("data-method") === "get") ? "get" : "post";
+    form.action = to;
+    form.style.display = "hidden";
+
+    form.appendChild(csrf);
+    form.appendChild(method);
+    document.body.appendChild(form);
+    form.submit();
+  }
+
+  window.addEventListener("click", function(e) {
+    var element = e.target;
+
+    while (element && element.getAttribute) {
+      if(element.getAttribute("data-method")) {
+        handleLinkClick(element);
+        e.preventDefault();
+        return false;
+      } else {
+        element = element.parentNode;
+      }
+    }
+  }, false);
+})();
+  })();
+});
 require.register("js/app.js", function(exports, require, module) {
 "use strict";
+
+require("phoenix_html");
 
 require("./socket");
 
@@ -1603,10 +1657,13 @@ socket.connect();
 var createSocket = function createSocket(topicId) {
     var channel = socket.channel("comments:" + topicId, {});
     channel.join().receive("ok", function (resp) {
-        console.log("Joined successfully", resp);
+        //console.log("Joined successfully", resp)
+        renderComments(resp.comments);
     }).receive("error", function (resp) {
         console.log("Unable to join", resp);
     });
+
+    channel.on("comments:" + topicId + ":new", renderComment);
 
     document.querySelector('button').addEventListener('click', function () {
         var content = document.querySelector('textarea').value;
@@ -1614,6 +1671,24 @@ var createSocket = function createSocket(topicId) {
         channel.push('comment:add', { content: content });
     });
 };
+
+function renderComments(comments) {
+    // for initial things
+    var renderedComments = comments.map(function (comment) {
+        return commentTemplate(comment);
+    });
+    document.querySelector('.collection').innerHTML = renderedComments.join('');
+}
+
+function renderComment(comment) {
+    // for adding to exist lists
+    var renderedComment = commentTemplate(comment);
+    document.querySelector('.collection').innerHTML += renderedComment;
+}
+
+function commentTemplate(comment) {
+    return "\n        <li class=\"collection-item\">\n            " + comment.content + "\n        <li>\n    ";
+}
 
 window.createSocket = createSocket;
 
@@ -1657,7 +1732,8 @@ window.createSocket = createSocket;
 
 });
 
-;require.alias("phoenix/priv/static/phoenix.js", "phoenix");require.register("___globals___", function(exports, require, module) {
+;require.alias("phoenix/priv/static/phoenix.js", "phoenix");
+require.alias("phoenix_html/priv/static/phoenix_html.js", "phoenix_html");require.register("___globals___", function(exports, require, module) {
   
 });})();require('___globals___');
 
