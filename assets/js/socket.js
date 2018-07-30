@@ -32,7 +32,7 @@ function renderComments(comments) { // for initial things
     document.querySelector('.collection').innerHTML = renderedComments.join('');
 }
 
-function renderComment(comment) { // for adding to exist lists
+function renderComment(event) { // for adding to exist lists
     const renderedComment = commentTemplate(event.comment);
     document.querySelector('.collection').innerHTML += renderedComment;
 }
