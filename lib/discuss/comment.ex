@@ -10,6 +10,7 @@ defmodule Discuss.Comment do
         timestamps()
     end
 
+#same as earlier
     def changeset(struct, params \\ %{}) do
         struct
         |> cast(params, [:content])
