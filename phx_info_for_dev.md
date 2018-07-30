@@ -55,3 +55,6 @@ _______________________________
 IF appears Error browser console looks like "cannot import phoenix",
 THEN -> sudo nano /proc/sys/fs/inotify/max_user_watches
 change number. I've change it to 100000.
+_______________________________
+In the end of the project still one buggy - if you are not registrated
+you cant read topics and see comments. + errors in browser console.
