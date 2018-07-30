@@ -1584,98 +1584,32 @@ var Timer = function () {
 })));
   })();
 });
-
-require.register("phoenix_html/priv/static/phoenix_html.js", function(exports, require, module) {
-  require = __makeRelativeRequire(require, {}, "phoenix_html");
-  (function() {
-    "use strict";
-
-(function() {
-  function buildHiddenInput(name, value) {
-    var input = document.createElement("input");
-    input.type = "hidden";
-    input.name = name;
-    input.value = value;
-    return input;
-  }
-
-  function handleLinkClick(link) {
-    var message = link.getAttribute("data-confirm");
-    if(message && !window.confirm(message)) {
-        return;
-    }
-
-    var to = link.getAttribute("data-to"),
-        method = buildHiddenInput("_method", link.getAttribute("data-method")),
-        csrf = buildHiddenInput("_csrf_token", link.getAttribute("data-csrf")),
-        form = document.createElement("form");
-
-    form.method = (link.getAttribute("data-method") === "get") ? "get" : "post";
-    form.action = to;
-    form.style.display = "hidden";
-
-    form.appendChild(csrf);
-    form.appendChild(method);
-    document.body.appendChild(form);
-    form.submit();
-  }
-
-  window.addEventListener("click", function(e) {
-    var element = e.target;
-
-    while (element && element.getAttribute) {
-      if(element.getAttribute("data-method")) {
-        handleLinkClick(element);
-        e.preventDefault();
-        return false;
-      } else {
-        element = element.parentNode;
-      }
-    }
-  }, false);
-})();
-  })();
-});
 require.register("js/app.js", function(exports, require, module) {
 "use strict";
 
-require("phoenix_html");
-
-var _socket = require("./socket");
-
-var _socket2 = _interopRequireDefault(_socket);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+require("./socket");
 
 });
 
-;require.register("js/socket.js", function(exports, require, module) {
+require.register("js/socket.js", function(exports, require, module) {
 "use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
 var _phoenix = require("phoenix");
 
-var socket = new _phoenix.Socket("/socket", { params: { token: window.userToken } }); // NOTE: The contents of this file will only be executed if
-// you uncomment its entry in "assets/js/app.js".
-
-// To use Phoenix channels, the first step is to import Socket
-// and connect at the socket path in "lib/web/endpoint.ex":
-
+var socket = new _phoenix.Socket("/socket", { params: { token: window.userToken } });
 
 socket.connect();
 
-// Now that you are connected, you can join channels with a topic:
-var channel = socket.channel("comments:1", {});
-channel.join().receive("ok", function (resp) {
-  console.log("Joined successfully", resp);
-}).receive("error", function (resp) {
-  console.log("Unable to join", resp);
-});
+var createSocket = function createSocket(topicId) {
+    var channel = socket.channel("comments:" + topicId, {});
+    channel.join().receive("ok", function (resp) {
+        console.log("Joined successfully", resp);
+    }).receive("error", function (resp) {
+        console.log("Unable to join", resp);
+    });
+};
 
-exports.default = socket;
+window.createSocket = createSocket;
 
 // In your "lib/web/router.ex":
 //
@@ -1717,8 +1651,7 @@ exports.default = socket;
 
 });
 
-;require.alias("phoenix/priv/static/phoenix.js", "phoenix");
-require.alias("phoenix_html/priv/static/phoenix_html.js", "phoenix_html");require.register("___globals___", function(exports, require, module) {
+;require.alias("phoenix/priv/static/phoenix.js", "phoenix");require.register("___globals___", function(exports, require, module) {
   
 });})();require('___globals___');
 
