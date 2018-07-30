@@ -51,3 +51,8 @@ FIRST PHOENIX APP!
 4. Page detailed with theme.
 5. Logout Button.
 6. Comment block.
+
+_______________________________
+IF appears Error browser console looks like "cannot import phoenix",
+THEN -> sudo nano /proc/sys/fs/inotify/max_user_watches
+change number. I've change it to 100000.
