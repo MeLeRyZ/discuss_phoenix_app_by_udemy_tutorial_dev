@@ -1641,9 +1641,15 @@ require.register("js/app.js", function(exports, require, module) {
 
 require("phoenix_html");
 
+var _socket = require("./socket");
+
+var _socket2 = _interopRequireDefault(_socket);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 });
 
-require.register("js/socket.js", function(exports, require, module) {
+;require.register("js/socket.js", function(exports, require, module) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1652,14 +1658,25 @@ Object.defineProperty(exports, "__esModule", {
 
 var _phoenix = require("phoenix");
 
-var socket = new _phoenix.Socket("/socket", { params: { token: window.userToken } });
+var socket = new _phoenix.Socket("/socket", { params: { token: window.userToken } }); // NOTE: The contents of this file will only be executed if
+// you uncomment its entry in "assets/js/app.js".
 
-// When you connect, you'll often need to authenticate the client.
-// For example, imagine you have an authentication plug, `MyAuth`,
-// which authenticates the session and assigns a `:current_user`.
-// If the current user exists you can assign the user's token in
-// the connection for use in the layout.
-//
+// To use Phoenix channels, the first step is to import Socket
+// and connect at the socket path in "lib/web/endpoint.ex":
+
+
+socket.connect();
+
+// Now that you are connected, you can join channels with a topic:
+var channel = socket.channel("comments:1", {});
+channel.join().receive("ok", function (resp) {
+  console.log("Joined successfully", resp);
+}).receive("error", function (resp) {
+  console.log("Unable to join", resp);
+});
+
+exports.default = socket;
+
 // In your "lib/web/router.ex":
 //
 //     pipeline :browser do
@@ -1698,26 +1715,9 @@ var socket = new _phoenix.Socket("/socket", { params: { token: window.userToken 
 // Finally, pass the token on connect as below. Or remove it
 // from connect if you don't care about authentication.
 
-// NOTE: The contents of this file will only be executed if
-// you uncomment its entry in "assets/js/app.js".
-
-// To use Phoenix channels, the first step is to import Socket
-// and connect at the socket path in "lib/web/endpoint.ex":
-socket.connect();
-
-// Now that you are connected, you can join channels with a topic:
-var channel = socket.channel("topic:subtopic", {});
-channel.join().receive("ok", function (resp) {
-  console.log("Joined successfully", resp);
-}).receive("error", function (resp) {
-  console.log("Unable to join", resp);
 });
 
-exports.default = socket;
-
-});
-
-require.alias("phoenix/priv/static/phoenix.js", "phoenix");
+;require.alias("phoenix/priv/static/phoenix.js", "phoenix");
 require.alias("phoenix_html/priv/static/phoenix_html.js", "phoenix_html");require.register("___globals___", function(exports, require, module) {
   
 });})();require('___globals___');
