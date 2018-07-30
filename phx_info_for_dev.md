@@ -1,3 +1,12 @@
+FIRST PHOENIX APP!
+0. Button for registration.
+1. Page with list of topics
+2. Page of create a topic if Signed in.
+3. Page for editing a topic if Signed In. & Button for deleting.
+4. Page detailed with theme.
+5. Logout Button.
+6. Comment block.
+_______________________________________________
 html <->
 json <->      PHOENIX      <-> psql, PostgreSQL
 sock <->
@@ -42,16 +51,6 @@ _______________________________
 Installing authentication:
 1. Install ueberauth
 2. Install additionally package ueberauth_provider
-_______________________________
-FIRST PHOENIX APP!
-0. Button for registration.
-1. Page with list of topics
-2. Page of create a topic if Signed in.
-3. Page for editing a topic if Signed In. & Button for deleting.
-4. Page detailed with theme.
-5. Logout Button.
-6. Comment block.
-
 _______________________________
 IF appears Error browser console looks like "cannot import phoenix",
 THEN -> sudo nano /proc/sys/fs/inotify/max_user_watches
